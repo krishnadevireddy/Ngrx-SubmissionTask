@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Submissions } from './submissions.model';
 import  * as submissions from '../../assets/submissions.json';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface Status {
   value: string;
@@ -20,6 +22,7 @@ interface Status {
 
 
 export class SubmissionsComponent  implements OnInit{
+  @ViewChild('htmlData') htmlData!: ElementRef;
 
   // google maps zoom level
   zoom: number = 8;
@@ -111,11 +114,10 @@ let filterdata=this.submissionsList.filter(item=>item.status.toLowerCase()==this
 
 }
 orgValueChange(){
-  console.log(this.datepipe.transform(this.dueDateValue, 'dd/MM/yyyy'))
   this.submissionsList=[];
   this.submissionsList=this.cloneList;
 
-  console.log(this.selectedStatus)
+  console.log(this.submissionsList)
   this.submissionsList.forEach(element => {
     console.log(this.datepipe.transform(element.duedate, 'dd/MM/yyyy'))
   });
@@ -131,6 +133,20 @@ onValChange(value:any){
   console.log(value)
   this.selectedButton=value;
 }
+
+openPDF() {
+  let DATA: any = document.getElementById('excel-table');
+  html2canvas(DATA).then((canvas) => {
+    let fileWidth = 208;
+    let fileHeight = (canvas.height * fileWidth) / canvas.width;
+    const FILEURI = canvas.toDataURL('image/png');
+    let PDF = new jsPDF('p', 'mm', 'a4');
+    let position = 0;
+    PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+    PDF.save('Submissions.pdf');
+  });
+}
+
 
 exportexcel(): void
 {

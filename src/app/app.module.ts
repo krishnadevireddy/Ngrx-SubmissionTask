@@ -19,6 +19,9 @@ import { FormsModule} from '@angular/forms';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material/core';
 
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+
 import { DatePipe } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps'
 import{MatButtonModule} from '@angular/material/button';
@@ -51,6 +54,7 @@ import { AgmCoreModule } from '@agm/core';
     })
     
   ],
+  
   providers: [DatePipe],
   schemas:[CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
