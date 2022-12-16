@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -18,6 +18,7 @@ import { SearchPipe } from './search.pipe'
 import { FormsModule} from '@angular/forms';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material/core';
+
 import { DatePipe } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps'
 import{MatButtonModule} from '@angular/material/button';
@@ -44,13 +45,14 @@ import { AgmCoreModule } from '@agm/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-   GoogleMapsModule,MatButtonModule,NgxPaginationModule,
+    GoogleMapsModule,MatButtonModule,NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     })
     
   ],
   providers: [DatePipe],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
